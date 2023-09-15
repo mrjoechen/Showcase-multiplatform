@@ -13,7 +13,7 @@ class Showcase{
     fun main() = application {
 
         var rProcess: java.lang.Process? = null
-        val icon = painterResource("Showcase.png")
+        val icon = painterResource("showcase_logo.png")
 
         Window(onCloseRequest = {
             rProcess?.destroy()

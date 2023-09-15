@@ -65,6 +65,5 @@ expect fun String.decodePass(key: String, iv: String): String
 
 expect abstract class Process
 
-// Shared module (commonMain)
 expect fun openScreenSaverSettings()
 

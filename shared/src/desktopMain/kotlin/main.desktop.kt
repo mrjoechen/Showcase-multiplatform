@@ -43,7 +43,7 @@ fun MainView() {
 
         thread {
             rProcess?.destroy()
-            rProcess = ProcessBuilder(resourcesDir.resolve("rclone").absolutePath, "serve", "http", "--addr", ":12121", "google:").start()
+            rProcess = ProcessBuilder(resourcesDir.resolve("rclone").absolutePath, "serve", "http", "--addr", ":12121", "catnas:").start()
             rProcess!!.inputStream.bufferedReader().readLine()
             rProcess!!.waitFor()
         }
@@ -70,21 +70,17 @@ actual fun openScreenSaverSettings() {
 
     if (AppConfig.isWindows()){
         try {
-            // 使用Java的Desktop类打开Windows的屏保设置
-            Desktop.getDesktop().browse(URI("control:/name Microsoft.ScreenSaver"))
+            Runtime.getRuntime().exec("rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,1");
         } catch (e: Exception) {
-            // 处理错误，例如Desktop类不支持此操作
             e.printStackTrace()
         }
     }
 
     if (AppConfig.isMac()){
         try {
-            // 使用Java的Desktop类打开macOS的屏保设置
             val path = "/System/Library/PreferencePanes/DesktopScreenEffectsPref.prefPane"
             Desktop.getDesktop().open(File(path))
         } catch (e: Exception) {
-            // 处理错误，例如Desktop类不支持此操作
             e.printStackTrace()
         }
     }

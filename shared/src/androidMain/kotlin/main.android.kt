@@ -9,3 +9,7 @@ actual typealias UUID = java.util.UUID
 actual fun randomUUID(): UUID = UUID.randomUUID()
 
 actual typealias Process = java.lang.Process
+
+actual fun openScreenSaverSettings() {
+
+}

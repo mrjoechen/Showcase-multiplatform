@@ -21,10 +21,10 @@ compose.desktop {
     application {
         mainClass = "Showcase"
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "Showcase"
-            packageVersion = "1.0.0"
-            version = "0.1-SNAPSHOT"
+            packageVersion = findProperty("showcase.versionName") as String
+//            version = "0.1-SNAPSHOT"
             description = "Showcase App"
             copyright = "© 2023 Joe Chen. All rights reserved."
             vendor = "GitHub"
@@ -32,10 +32,10 @@ compose.desktop {
             appResourcesRootDir.set(project.layout.projectDirectory.dir("resources"))
 
             val iconsRoot = project.file("resources")
-
             macOS {
                 // macOS specific options
                 iconFile.set(iconsRoot.resolve("Showcase.icns"))
+                bundleID = "com.alpha.showcase.macos"
                 dockName = "Showcase App"
             }
             windows {

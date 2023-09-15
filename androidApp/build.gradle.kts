@@ -23,7 +23,8 @@ android {
     namespace = "com.alpha.showcase.android"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-
+    val date = SimpleDateFormat("yyyyMMddHHmm")
+    val formattedDate = date.format(Calendar.getInstance().time)
     defaultConfig {
         applicationId = "com.alpha.showcase.android"
         minSdk = (findProperty("android.minSdk") as String).toInt()
@@ -32,15 +33,14 @@ android {
         versionName = findProperty("showcase.versionName") as String
         setProperty(
             "archivesBaseName",
-            "showcase-$versionCode($versionName)${SimpleDateFormat("yyyyMMddHHmm").format(Calendar.getInstance().time)}"
+            "showcase-android-$versionCode($versionName)${formattedDate}"
         )
     }
-    val date = SimpleDateFormat("yyyyMMddHHmm")
-    val formattedDate = date.format(Calendar.getInstance().time)
+
     applicationVariants.configureEach {
         outputs.configureEach {
             (this as? com.android.build.gradle.internal.api.ApkVariantOutputImpl)?.outputFileName =
-                "showcase.${versionName}_${versionCode}-${formattedDate}-${name}.apk"
+                "showcase-android.${versionName}_${versionCode}-${formattedDate}-${name}.apk"
         }
     }
 

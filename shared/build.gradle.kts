@@ -1,30 +1,25 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("kotlin-parcelize")
+    kotlin("plugin.serialization").version(libs.versions.kotlin.get())
 }
 
 kotlin {
-    android()
+    androidTarget()
 
     jvm("desktop")
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    cocoapods {
-        version = "1.0.0"
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
-        framework {
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
             baseName = "shared"
             isStatic = true
         }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     sourceSets {
@@ -36,16 +31,32 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.animation)
                 implementation(compose.materialIconsExtended)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.molecule.runtime)
+                implementation(libs.decompose)
+                implementation(libs.decompose.compose.multiplatform)
+                implementation(libs.decompose.router)
+                implementation(libs.essenty.parcelable)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.client.logging)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.qdsfdhvh.image.loader)
+                implementation(libs.kstore)
+                implementation(libs.kotlinx.datetime)
+
             }
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
+                api(libs.androidx.activity.compose)
+                api(libs.androidx.appcompat)
+                api(libs.androidx.core.ktx)
+
+                implementation(libs.ktor.client.cio)
+                implementation(libs.kstore.file)
+                implementation(libs.androidx.compose.windowsizeclass)
             }
         }
         val iosX64Main by getting
@@ -56,10 +67,16 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.kstore.file)
+            }
         }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.common)
+                implementation(libs.ktor.client.cio)
+                implementation(libs.kstore.file)
             }
         }
     }
@@ -67,7 +84,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.myapplication.common"
+    namespace = "com.alpha.showcase.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -75,13 +92,12 @@ android {
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 }

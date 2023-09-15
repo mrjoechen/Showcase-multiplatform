@@ -1,4 +1,4 @@
-rootProject.name = "MyApplication"
+rootProject.name = "ShowcaseApp"
 
 include(":androidApp")
 include(":shared")
@@ -7,8 +7,9 @@ include(":desktopApp")
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        mavenCentral()
         google()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
     plugins {
@@ -27,10 +28,14 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.4.0")
+}
+
 dependencyResolutionManagement {
     repositories {
-        google()
         mavenCentral()
+        google()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }

@@ -1,17 +1,22 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import com.formdev.flatlaf.util.SystemInfo
 import ui.LocalStringResources
+import ui.StringResources
+import javax.swing.JFrame
 
 class Showcase{
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
+//            System.setProperty("apple.awt.application.appearance", "system")
             Showcase().main()
         }
     }
@@ -20,16 +25,22 @@ class Showcase{
 
         var rProcess: java.lang.Process? = null
         val icon = painterResource("showcase_logo.png")
-
         Window(
             onCloseRequest = {
                 rProcess?.destroy()
                 exitApplication()
             },
             icon = icon,
-            title = LocalStringResources.current.app_name,
-            state = WindowState(width = 1280.dp, height = 720.dp),
+            title = ""
         ) {
+            val jFrame: JFrame = this.window
+
+            LaunchedEffect(Unit) {
+                if (AppConfig.isMac()){
+                    jFrame.rootPane.putClientProperty("apple.awt.transparentTitleBar", true)
+                    jFrame.rootPane.putClientProperty("apple.awt.fullWindowContent", true)
+                }
+            }
 
             Column(modifier = Modifier.sizeIn(640.dp, 360.dp)) {
                 MainView()

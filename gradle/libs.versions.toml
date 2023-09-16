@@ -9,6 +9,7 @@ core-ktx = "1.12.0"
 decompose = "2.1.0-compose-experimental-alpha-07"
 decompose-router = "0.4.0"
 essenty = "1.2.0-alpha-06"
+flatlaf = "3.2.1"
 harawata-appdirs = "1.2.1"
 horologist = "0.4.11"
 kotlin = "1.9.10"
@@ -34,6 +35,7 @@ decompose-router = { module = "io.github.xxfast:decompose-router", version.ref =
 decompose-router-wear = { module = "io.github.xxfast:decompose-router-wear", version.ref = "decompose-router" }
 decompose-compose-multiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 essenty-parcelable = { module = "com.arkivanov.essenty:parcelable", version.ref = "essenty" }
+flatlaf = { module = "com.formdev:flatlaf", version.ref = "flatlaf" }
 harawata-appdirs = { module = "net.harawata:appdirs", version.ref = "harawata-appdirs" }
 horologist-compose-layouts = { module = "com.google.android.horologist:horologist-compose-layout", version.ref = "horologist" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

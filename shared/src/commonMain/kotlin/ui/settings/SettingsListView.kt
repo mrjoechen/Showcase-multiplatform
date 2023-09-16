@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import data.Settings
-import kotlinx.coroutines.delay
 
 
 @Composable
@@ -43,7 +42,6 @@ fun SettingsListView(viewModel: SettingsViewModel) {
 
 
             LaunchedEffect(Unit){
-                delay(1000)
                 uiState = UiState.Content(Settings())
             }
         }
@@ -98,7 +96,7 @@ val UiState<*>.succeeded
 
 
 @Composable
-fun ProgressIndicator(size: Dp = 30.dp) {
+fun ProgressIndicator(size: Dp = 50.dp) {
     Box(modifier = Modifier.fillMaxSize()) {
         CircularProgressIndicator(
             modifier = Modifier

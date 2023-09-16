@@ -1,58 +1,47 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import java.awt.Button
 import java.awt.Desktop
 import java.io.File
-import java.net.URI
-import java.nio.file.Files
-import java.nio.file.Paths
-import kotlin.concurrent.thread
 import java.util.UUID as JvmUUID
 import java.lang.Process as JvmProcess
 
-actual fun getPlatformName(): String = "Desktop"
+actual fun getPlatformName(): String =
+    if (AppConfig.isWindows()) {
+        "Windows"
+    } else if (AppConfig.isMac()) {
+        "macOs"
+    } else
+        "Desktop-" + AppConfig.getPlatformName()
 
 @Suppress("NewApi")
 @Composable
 fun MainView() {
-    Column {
-        Button(onClick = {
-            openScreenSaverSettings()
-        }) {
-            Text("Click me")
-        }
-        App()
-    }
+    App()
 
-    DisposableEffect(Unit) {
-
-        var rProcess: JvmProcess? = null
-        println("AppPreview")
-
-        val appSupportPath = Paths.get(AppConfig.getConfigDirectory())
-        if (Files.notExists(appSupportPath)) {
-            Files.createDirectories(appSupportPath)
-        }
-        val resourcesDir = File(System.getProperty("compose.application.resources.dir"))
-        println(resourcesDir)
-
-        thread {
-            rProcess?.destroy()
-            rProcess = ProcessBuilder(resourcesDir.resolve("rclone").absolutePath, "serve", "http", "--addr", ":12121", "catnas:").start()
-            rProcess!!.inputStream.bufferedReader().readLine()
-            rProcess!!.waitFor()
-        }
-
-        onDispose {
-            println("AppPreview onDispose")
-            rProcess?.destroy()
-        }
-    }
+//    DisposableEffect(Unit) {
+//
+//        var rProcess: JvmProcess? = null
+//        println("AppPreview")
+//
+//        val appSupportPath = Paths.get(AppConfig.getConfigDirectory())
+//        if (Files.notExists(appSupportPath)) {
+//            Files.createDirectories(appSupportPath)
+//        }
+//        val resourcesDir = File(System.getProperty("compose.application.resources.dir"))
+//        println(resourcesDir)
+//
+//        thread {
+//            rProcess?.destroy()
+//            rProcess = ProcessBuilder(resourcesDir.resolve("rclone").absolutePath, "serve", "http", "--addr", ":12121", "catnas:").start()
+//            rProcess!!.inputStream.bufferedReader().readLine()
+//            rProcess!!.waitFor()
+//        }
+//
+//        onDispose {
+//            println("AppPreview onDispose")
+//            rProcess?.destroy()
+//        }
+//    }
 }
 
 @Suppress("NewApi")

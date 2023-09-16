@@ -1020,7 +1020,7 @@ class DesktopRclone(): Rclone {
 
 object AppConfig {
   fun getConfigDirectory(): String {
-    val os = System.getProperty("os.name").lowercase()
+    val os = getPlatformName()
     return when {
       os.contains("win") -> System.getenv("APPDATA") + "\\Showcase\\"
       os.contains("mac") -> System.getProperty("user.home") + "/Library/Application Support/Showcase/"
@@ -1042,10 +1042,14 @@ object AppConfig {
   }
 
   fun isWindows(): Boolean {
-    return System.getProperty("os.name").lowercase().contains("win")
+    return getPlatformName().contains("win")
   }
 
   fun isMac(): Boolean {
-    return System.getProperty("os.name").lowercase().contains("mac")
+    return getPlatformName().contains("mac")
+  }
+
+  fun getPlatformName(): String {
+    return System.getProperty("os.name").lowercase()
   }
 }

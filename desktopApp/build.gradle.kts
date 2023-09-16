@@ -20,12 +20,13 @@ kotlin {
 
 compose.desktop {
     application {
+        project.version = findProperty("showcase.versionCode") as String
         mainClass = "Showcase"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "Showcase"
             packageVersion = findProperty("showcase.versionName") as String
-//            version = "0.1-SNAPSHOT"
+            version = findProperty("showcase.versionCode") as String
             description = "Showcase App"
             copyright = "© 2023 Joe Chen. All rights reserved."
             vendor = "GitHub"
@@ -38,6 +39,8 @@ compose.desktop {
                 iconFile.set(iconsRoot.resolve("Showcase.icns"))
                 bundleID = "com.alpha.showcase.macos"
                 dockName = "Showcase App"
+                dmgPackageVersion = findProperty("showcase.versionCode") as String
+                pkgPackageVersion = findProperty("showcase.versionCode") as String
             }
             windows {
                 // Windows specific options

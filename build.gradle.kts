@@ -6,4 +6,5 @@ plugins {
     id("com.android.library").apply(false)
     id("org.jetbrains.compose").apply(false)
     alias(libs.plugins.paranoid.plugin) apply false
+    alias(libs.plugins.buildkonfig.gradle.plugin) apply false
 }

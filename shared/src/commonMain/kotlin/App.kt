@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import com.alpha.networkfile.storage.external.GitHubSource
 import com.alpha.networkfile.storage.external.TMDBSource
 import com.alpha.showcase.common.repo.github.GithubFileRepo
+import com.alpha.showcase.common.repo.sources.SourceListRepo
 import com.alpha.showcase.common.repo.tmdb.NOW_PLAYING_MOVIES
 import com.alpha.showcase.common.repo.tmdb.TmdbSourceRepo
 import com.alpha.showcase.common.repo.tmdb.data.ImageType
@@ -27,16 +28,8 @@ fun App() {
     }
 
     LaunchedEffect(Unit) {
-        val items = TmdbSourceRepo().getItems(
-            TMDBSource(
-                "aa",
-                NOW_PLAYING_MOVIES,
-                Language.CHINESE.value,
-                Region.CN.value,
-                ImageType.POSTER.value),
-            false
-        )
-        println(items)
+        val sourceListRepo = SourceListRepo()
+        sourceListRepo.addSource(GitHubSource("aaaa", "bbbb", "cccc"))
 
     }
 

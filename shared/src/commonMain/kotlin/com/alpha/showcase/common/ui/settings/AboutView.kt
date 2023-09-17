@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalUriHandler
+import com.alpha.showcase.common.BuildKonfig
 import com.alpha.showcase.common.ui.view.IconItem
 import com.alpha.showcase.common.ui.view.TextTitleMedium
 
@@ -55,10 +56,6 @@ fun AboutView() {
         mutableStateOf(false)
     }
 
-    var openBottomBilling by remember {
-        mutableStateOf(false)
-    }
-
     Column {
         val uriHandler = LocalUriHandler.current
         fun openUrl(url: String) {
@@ -80,7 +77,7 @@ fun AboutView() {
             }){
 
             Text(
-                text = "info",
+                text = "${BuildKonfig.versionName}(${BuildKonfig.versionCode})",
                 color = LocalContentColor.current.copy(0.6f)
             )
         }

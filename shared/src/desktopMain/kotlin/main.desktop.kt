@@ -55,6 +55,11 @@ actual typealias UUID = JvmUUID
 
 actual fun randomUUID(): UUID = JvmUUID.randomUUID()
 actual typealias Process = JvmProcess
+
+actual fun showcaseConfigPath(): String {
+    return AppConfig.getConfigDirectory()
+}
+
 actual fun openScreenSaverSettings() {
 
     if (AppConfig.isWindows()){

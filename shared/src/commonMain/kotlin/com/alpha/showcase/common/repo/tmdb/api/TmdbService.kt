@@ -19,8 +19,8 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 
-const val TMDB_BASE_URL = "api.themoviedb.org/3"
-const val TMDB_BASE_URL_PROXY = "api.tmdb.org/3"
+const val TMDB_BASE_URL = "api.themoviedb.org"
+const val TMDB_BASE_URL_PROXY = "api.tmdb.org"
 
 //https://image.tmdb.org/t/p/original/dKtgSYi2AwlaHYo1Iqie8wlMsc5.jpg
 const val TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original/"
@@ -67,7 +67,7 @@ class TmdbService(private val httpClient: HttpClient = tmdbHttpClient) {
     language: String = Language.ENGLISH_US.value
   ): Result<MovieListResponse> = httpClient.get {
     url {
-      path("movie/top_rated")
+      path("3/movie/top_rated")
       parameter("page", page)
       parameter("region", region)
       parameter("language", language)
@@ -80,7 +80,7 @@ class TmdbService(private val httpClient: HttpClient = tmdbHttpClient) {
     language: String = Language.ENGLISH_US.value
   ): Result<MovieListResponse> = httpClient.get {
     url {
-      path("movie/popular")
+      path("3/movie/popular")
       parameter("page", page)
       parameter("region", region)
       parameter("language", language)
@@ -93,7 +93,7 @@ class TmdbService(private val httpClient: HttpClient = tmdbHttpClient) {
     language: String = Language.ENGLISH_US.value
   ): Result<MovieListResponse> = httpClient.get {
     url {
-      path("movie/upcoming")
+      path("3/movie/upcoming")
       parameter("page", page)
       parameter("region", region)
       parameter("language", language)
@@ -106,7 +106,7 @@ class TmdbService(private val httpClient: HttpClient = tmdbHttpClient) {
     language: String = Language.ENGLISH_US.value
   ): Result<MovieListResponse> = httpClient.get {
     url {
-      path("movie/now_playing")
+      path("3/movie/now_playing")
       parameter("page", page)
       parameter("region", region)
       parameter("language", language)
@@ -117,7 +117,7 @@ class TmdbService(private val httpClient: HttpClient = tmdbHttpClient) {
     movieId: Int
   ): Result<MovieImagesResponse> = httpClient.get {
     url {
-      path("movie/$movieId/images")
+      path("3/movie/$movieId/images")
     }
   }
 

@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec
+apply(from = "../version.gradle.kts")
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
@@ -5,6 +9,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("plugin.serialization").version(libs.versions.kotlin.get())
     id("org.lsposed.lsparanoid")
+    id("com.codingfeline.buildkonfig")
 }
 
 kotlin {
@@ -101,6 +106,27 @@ android {
     }
     kotlin {
         jvmToolchain(17)
+    }
+}
+
+buildkonfig {
+    packageName = "com.alpha.showcase.common"
+
+    defaultConfigs {
+        val tmdb_token: String = gradleLocalProperties(rootDir).getProperty("TMDB_TOKEN")
+        require(tmdb_token.isNotEmpty()) {
+            "Register your api TMDB_TOKEN place it in local.properties as `TMDB_TOKEN`"
+        }
+
+        buildConfigField(FieldSpec.Type.STRING, "TMDB_TOKEN", tmdb_token)
+
+        println("git count: ${(project.extra["gitCommitCount"] as Int) + 10000}")
+        println("git commit: ${project.extra["gitHash"]}")
+
+        val versionCode: String = findProperty("showcase.versionCode") as String
+        val versionName: String = findProperty("showcase.versionName") as String
+        buildConfigField(FieldSpec.Type.INT, "versionCode", versionCode)
+        buildConfigField(FieldSpec.Type.STRING, "versionName", versionName)
     }
 }
 

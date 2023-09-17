@@ -21,3 +21,5 @@ expect fun String.decodePass(key: String, iv: String): String
 expect abstract class Process
 
 expect fun openScreenSaverSettings()
+
+expect fun showcaseConfigPath(): String

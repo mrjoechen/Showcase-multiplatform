@@ -8,10 +8,10 @@ import kotlinx.serialization.Serializable
 @SerialName("TMDB")
 open class TMDBSource(
     override val name: String,
-    val contentType: String,
-    val language: String,
-    val region: String,
-    val imageType: String = ""
+    val contentType: String?,
+    val language: String?,
+    val region: String?,
+    val imageType: String?
 ) : RemoteApi<String> {
     override fun connect(): Boolean {
         return false

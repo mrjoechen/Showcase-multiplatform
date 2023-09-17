@@ -108,9 +108,9 @@ fun ItemContent(icon: Any?, desc: String, content: @Composable (RowScope.() -> U
         )
       }
 
-      is Int -> {
+      is String -> {
         Icon(
-          painter = painterResource(""),
+          painter = painterResource(icon),
           contentDescription = desc,
           modifier = Modifier
             .padding(5.dp)

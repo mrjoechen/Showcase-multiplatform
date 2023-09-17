@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowCircleUp
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.IosShare
 import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.outlined.TipsAndUpdates
@@ -66,12 +67,12 @@ fun AboutView() {
                 // todo gen qrcode and show
             }
         }
-        TextTitleMedium(text = "aaaaa")
+        TextTitleMedium(text = "About")
 
 
         IconItem(
             Icons.Outlined.Info,
-            desc = "info",
+            desc = "Info",
             onClick = {
                 openUrl(resUrl)
             }){
@@ -83,8 +84,8 @@ fun AboutView() {
         }
 
         IconItem(
-            Icons.Outlined.Info,
-            desc = "telegram",
+            "icons8_telegram_app.xml",
+            desc = "Telegram",
             onClick = {
                 openUrl(telegramChannelUrl)
             })
@@ -98,14 +99,14 @@ fun AboutView() {
 
         IconItem(
             Icons.Outlined.TipsAndUpdates,
-            desc = "",
+            desc = "Thanks",
             onClick = {
                 showOpenSourceDialog = !showOpenSourceDialog
             })
 
         IconItem(
             Icons.Outlined.PrivacyTip,
-            desc = "",
+            desc = "Privacy Policy",
             onClick = {
                 openUrl(privacyPolicyUrl)
             })
@@ -121,7 +122,7 @@ fun AboutView() {
 
         IconItem(
             Icons.Outlined.ThumbUp,
-            desc = "",
+            desc = "Rate us",
             onClick = {
 
 
@@ -130,7 +131,7 @@ fun AboutView() {
 
         IconItem(
             Icons.Outlined.ArrowCircleUp,
-            desc = "",
+            desc = "update",
             onClick = {
 //                coroutineScope.launch {
 //                    UpdateExt.checkForUpdate {
@@ -145,6 +146,14 @@ fun AboutView() {
 //                    }
 //                }
 
+
+            }
+        )
+
+        IconItem(
+            Icons.Outlined.IosShare,
+            desc = "Share",
+            onClick = {
 
             }
         )

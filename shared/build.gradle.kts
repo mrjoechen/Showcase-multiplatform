@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
     kotlin("plugin.serialization").version(libs.versions.kotlin.get())
+    id("org.lsposed.lsparanoid")
 }
 
 kotlin {
@@ -44,8 +45,9 @@ kotlin {
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.qdsfdhvh.image.loader)
                 implementation(libs.kstore)
+                implementation(libs.kstore.file)
                 implementation(libs.kotlinx.datetime)
-
+                implementation(libs.lsposed.lsparanoid)
             }
         }
         val androidMain by getting {
@@ -99,5 +101,19 @@ android {
     }
     kotlin {
         jvmToolchain(17)
+    }
+}
+
+lsparanoid {
+    seed = null
+    global = false
+    includeDependencies = true
+    variantFilter = { variant ->
+        val b = variant.name.contains("Release")
+                || variant.name.contains("release")
+                || variant.name.contains("Beta")
+                || variant.name.contains("beta")
+        println("lsparanoid variantFilter: ${variant.name} $b")
+        b
     }
 }

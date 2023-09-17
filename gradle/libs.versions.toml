@@ -59,3 +59,7 @@ qdsfdhvh-image-loader = { module = "io.github.qdsfdhvh:image-loader", version.re
 wear-compose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wear-compose" }
 wear-compose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wear-compose" }
 wear-compose-ui-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wear-compose" }
+lsposed-lsparanoid = { module = "org.lsposed.lsparanoid:core", version = "0.5.2" }
+
+[plugins]
+paranoid-plugin = { id = "org.lsposed.lsparanoid", version = "0.5.2" }

@@ -2,9 +2,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import ui.MainNavHost
+import com.alpha.networkfile.storage.external.GitHubSource
+import com.alpha.networkfile.storage.external.TMDBSource
+import com.alpha.showcase.common.repo.github.GithubFileRepo
+import com.alpha.showcase.common.repo.tmdb.NOW_PLAYING_MOVIES
+import com.alpha.showcase.common.repo.tmdb.TmdbSourceRepo
+import com.alpha.showcase.common.repo.tmdb.data.ImageType
+import com.alpha.showcase.common.repo.tmdb.data.Language
+import com.alpha.showcase.common.repo.tmdb.data.Region
+import com.alpha.showcase.common.ui.MainNavHost
+import com.alpha.showcase.common.utils.get
+import io.ktor.client.HttpClient
+import io.ktor.http.URLProtocol
 
 @Composable
 fun App() {
@@ -14,29 +26,19 @@ fun App() {
         }
     }
 
+    LaunchedEffect(Unit) {
+        val items = TmdbSourceRepo().getItems(
+            TMDBSource(
+                "aa",
+                NOW_PLAYING_MOVIES,
+                Language.CHINESE.value,
+                Region.CN.value,
+                ImageType.POSTER.value),
+            false
+        )
+        println(items)
+
+    }
+
 }
-
-expect fun getPlatformName(): String
-
-
-const val TEST_KEY = "1234567890123456"
-const val TEST_IV = "0123456789abcdef"// 长度必须是 16 个字节
-
-expect class UUID {
-    override fun toString(): String
-}
-
-expect fun randomUUID(): UUID
-
-expect fun String.encodeName(): String
-
-expect fun String.decodeName(): String
-
-expect fun String.encodePass(key: String, iv: String): String
-
-expect fun String.decodePass(key: String, iv: String): String
-
-expect abstract class Process
-
-expect fun openScreenSaverSettings()
 

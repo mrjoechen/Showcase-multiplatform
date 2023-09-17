@@ -5,11 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import com.formdev.flatlaf.util.SystemInfo
-import ui.LocalStringResources
-import ui.StringResources
 import javax.swing.JFrame
 
 class Showcase{

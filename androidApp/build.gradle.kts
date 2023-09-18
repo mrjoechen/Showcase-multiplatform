@@ -20,6 +20,9 @@ kotlin {
     }
 }
 
+
+val Project.gitHash: String
+    get() = project.extra["gitHash"] as String
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "com.alpha.showcase.android"
@@ -35,14 +38,14 @@ android {
         versionName = project.extra["versionName"] as String
         setProperty(
             "archivesBaseName",
-            "showcase-android-$versionCode($versionName)${formattedDate}"
+            "showcase-android-$versionCode.${gitHash}($versionName)${formattedDate}"
         )
     }
 
     applicationVariants.configureEach {
         outputs.configureEach {
             (this as? com.android.build.gradle.internal.api.ApkVariantOutputImpl)?.outputFileName =
-                "showcase-android.${versionName}_${versionCode}-${formattedDate}-${name}.apk"
+                "showcase-android.${versionName}.${gitHash}_${versionCode}-${formattedDate}-${name}.apk"
         }
     }
 

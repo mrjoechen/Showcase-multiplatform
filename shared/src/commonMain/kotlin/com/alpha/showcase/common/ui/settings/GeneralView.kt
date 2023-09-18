@@ -28,6 +28,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alpha.showcase.common.data.DarkThemePreference
+import com.alpha.showcase.common.data.GeneralPreference
+import com.alpha.showcase.common.data.GeneralPreferenceKey
 import com.alpha.showcase.common.ui.view.IconItem
 import com.alpha.showcase.common.ui.view.SegmentedControl
 import com.alpha.showcase.common.ui.view.SlideItem
@@ -43,7 +45,10 @@ import com.alpha.showcase.common.ui.view.TextTitleMedium
  *      - Anonymous Usage
  */
 @Composable
-fun GeneralView(generalPreference: GeneralPreference, onSet: (String, Any) -> Unit){
+fun GeneralView(
+  generalPreference: GeneralPreference,
+  onSet: (String, Any) -> Unit
+){
 
   var showClearCacheDialog by remember {
     mutableStateOf(false)
@@ -73,7 +78,7 @@ fun GeneralView(generalPreference: GeneralPreference, onSet: (String, Any) -> Un
         defaultSelectedItemIndex = generalPreference.darkMode,
         contentPadding = PaddingValues(10.dp, 4.dp),
       ) {
-        onSet(GeneralPreferenceItem.DarkMode, it)
+        onSet(GeneralPreferenceKey.DarkMode, it)
       }
 
     }
@@ -83,7 +88,7 @@ fun GeneralView(generalPreference: GeneralPreference, onSet: (String, Any) -> Un
       check = generalPreference.anonymousUsage,
       desc = "AnonymousUsage",
       onCheck = {
-        onSet(GeneralPreferenceItem.AnonymousUsage, it)
+        onSet(GeneralPreferenceKey.AnonymousUsage, it)
       })
 
     SlideItem(
@@ -98,7 +103,7 @@ fun GeneralView(generalPreference: GeneralPreference, onSet: (String, Any) -> Un
         showClearCacheDialog = true
       },
       onValueChanged = {
-        onSet(GeneralPreferenceItem.CacheSize, it)
+        onSet(GeneralPreferenceKey.CacheSize, it)
       })
 
   }
@@ -147,22 +152,3 @@ fun PreferenceSingleChoiceItem(
     }
   }
 }
-sealed class GeneralPreferenceItem {
-
-  companion object {
-    const val Language: String = "Language"
-    const val DarkMode: String = "DarkMode"
-    const val AnonymousUsage: String = "AnonymousUsage"
-    const val CacheSize: String = "CacheSize"
-  }
-}
-
-data class GeneralPreference(
-    val language: Int,
-    val darkMode: Int,
-    val anonymousUsage: Boolean = ANONYMOUS_USAGE_DEFAULT,
-    val cacheSize: Int = 100,
-    val latestSource: String = ""
-)
-
-const val ANONYMOUS_USAGE_DEFAULT = true

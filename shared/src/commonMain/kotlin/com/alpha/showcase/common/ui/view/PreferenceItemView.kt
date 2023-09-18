@@ -20,6 +20,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -189,10 +190,31 @@ fun <T> CheckItem(icon: Any, value: Pair<T, String>, desc: String, choices: List
       IconButton(onClick = {expanded = ! expanded}) {
         Icon(Icons.Outlined.ArrowRight, contentDescription = desc)
       }
+      DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = {expanded = false}
+      ) {
+
+        choices.forEachIndexed {index, item ->
+          DropdownMenuItem(
+            text = {Text(item.second, modifier = Modifier.fillMaxSize(), textAlign = TextAlign.Center)},
+            onClick = {
+              expanded = false
+              check = item
+              onCheck(item)
+            },
+            //            leadingIcon = {
+            //              Icon(
+            //                Icons.Outlined.FiberManualRecord,
+            //                contentDescription = checkString
+            //              )
+            //            }
+          )
+        }
+      }
     }
   }
 }
-
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable

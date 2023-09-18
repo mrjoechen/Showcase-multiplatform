@@ -10,9 +10,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,10 +22,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.alpha.showcase.common.data.Settings
 import com.alpha.showcase.common.ui.vm.UiState
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun SettingsListView(viewModel: SettingsViewModel) {
+fun SettingsListView(viewModel: SettingsViewModel = SettingsViewModel) {
     var uiState by remember {
         mutableStateOf<UiState<Settings>>(UiState.Loading)
     }
@@ -42,8 +45,8 @@ fun SettingsListView(viewModel: SettingsViewModel) {
             }
 
 
-            LaunchedEffect(Unit){
-                uiState = UiState.Content(Settings())
+            viewModel.settingsFlow.collectAsState(UiState.Loading).value.let {
+                uiState = it
             }
         }
     }
@@ -63,24 +66,19 @@ fun SettingsColumn(settings: Settings, viewModel: SettingsViewModel) {
 //        }
 //    }
 
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .widthIn(max = 650.dp)
     ) {
 
-        ShowcaseSettings(settings, viewModel.getGeneralSettings(), onSettingChanged = {
-
+        ShowcaseSettings(settings, viewModel.getGeneralSettings(), onSettingChanged = { settings ->
+            coroutineScope.launch {
+                viewModel.updateSettings(settings)
+            }
         })
     }
-}
-
-class SettingsViewModel {
-    fun getGeneralSettings(): GeneralPreference {
-
-        return GeneralPreference(1, 1)
-    }
-
 }
 
 

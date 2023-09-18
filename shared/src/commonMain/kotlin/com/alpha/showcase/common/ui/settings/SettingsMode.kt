@@ -7,12 +7,12 @@ sealed class Select<T>(val value: T, val title: String, val resString: Int){
     fun toPair() = value to title
     
     @Composable
-    fun toPairWithResString() = value to "stringRes"
+    fun toPairWithResString() = value to title
 }
 
 sealed class DisplayMode(type: Int, title: String, resString: Int): Select<Int>(type, title, resString){
-    object FitScreen: DisplayMode(0, "Full screen", 1)
-    object CenterCrop: DisplayMode(1, "Center", 2)
+    data object FitScreen: DisplayMode(0, "Full screen", 1)
+    data object CenterCrop: DisplayMode(1, "Center", 2)
     companion object {
         const val key: String = "DisplayMode"
         fun fromValue(type: Int): DisplayMode {

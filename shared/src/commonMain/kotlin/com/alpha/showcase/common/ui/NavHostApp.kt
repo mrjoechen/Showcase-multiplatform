@@ -1,6 +1,7 @@
 package com.alpha.showcase.common.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -80,7 +81,7 @@ fun MainNavHost() {
                 shape = RoundedCornerShape(6.dp),
               ) {
 
-                Box(modifier = Modifier.clickable {
+                Box(modifier = Modifier.clickable(interactionSource = MutableInteractionSource(), indication = null) {
                   currentDestination = Screen.Sources.route
                 }) {
                   Text(
@@ -150,13 +151,13 @@ fun MainNavHost() {
 //      }
 //    }
   ){
-    Column {
+    Column(modifier = Modifier.padding(10.dp, 0.dp)) {
       Spacer(Modifier.height(it.calculateTopPadding()))
       if (currentDestination == Screen.Sources.route) {
         SourceListView()
       }
       if (currentDestination == Screen.Settings.route) {
-        SettingsListView(SettingsViewModel())
+        SettingsListView()
       }
     }
 

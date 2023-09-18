@@ -13,9 +13,9 @@ import java.util.UUID
 
 
 class SourceListRepo() {
-  val store: KStore<StorageSources> = storeOf(filePath = showcaseConfigPath() + "/sources.json", json = StorageSourceSerializer.sourceJson)
+  private val store: KStore<StorageSources> = storeOf(filePath = showcaseConfigPath() + "/sources.json", json = StorageSourceSerializer.sourceJson)
 
-  val defaultValue by lazy {
+  private val defaultValue by lazy {
     StorageSources(
       BuildKonfig.versionCode,
       BuildKonfig.versionName,

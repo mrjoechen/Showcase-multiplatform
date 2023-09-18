@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
+apply(from = "../version.gradle.kts")
 
 kotlin {
     jvm()
@@ -20,17 +21,18 @@ kotlin {
 
 compose.desktop {
     application {
-        project.version = findProperty("showcase.versionCode") as String
+        project.version = project.extra["versionCode"].toString()
         mainClass = "Showcase"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "Showcase"
-            packageVersion = findProperty("showcase.versionName") as String
-            version = findProperty("showcase.versionCode") as String
+            packageVersion = project.extra["versionName"] as String
+            version = project.version
             description = "Showcase App"
             copyright = "© 2023 Joe Chen. All rights reserved."
             vendor = "GitHub"
 //            licenseFile.set(project.file("LICENSE.txt"))
+            // 设置 resources 拷贝到本地
             appResourcesRootDir.set(project.layout.projectDirectory.dir("resources"))
 
             val iconsRoot = project.file("resources")
@@ -39,8 +41,8 @@ compose.desktop {
                 iconFile.set(iconsRoot.resolve("Showcase.icns"))
                 bundleID = "com.alpha.showcase.macos"
                 dockName = "Showcase App"
-                dmgPackageVersion = findProperty("showcase.versionCode") as String
-                pkgPackageVersion = findProperty("showcase.versionCode") as String
+                dmgPackageVersion = project.version.toString()
+                pkgPackageVersion = project.version.toString()
             }
             windows {
                 // Windows specific options

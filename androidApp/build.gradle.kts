@@ -6,6 +6,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.compose")
 }
+apply(from = "../version.gradle.kts")
+
 android.buildFeatures.buildConfig=true
 kotlin {
     androidTarget()
@@ -29,8 +31,8 @@ android {
         applicationId = "com.alpha.showcase.android"
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
-        versionCode = (findProperty("showcase.versionCode")as String).toInt()
-        versionName = findProperty("showcase.versionName") as String
+        versionCode = project.extra["versionCode"] as Int
+        versionName = project.extra["versionName"] as String
         setProperty(
             "archivesBaseName",
             "showcase-android-$versionCode($versionName)${formattedDate}"

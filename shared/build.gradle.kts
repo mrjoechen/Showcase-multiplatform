@@ -120,13 +120,13 @@ buildkonfig {
 
         buildConfigField(FieldSpec.Type.STRING, "TMDB_TOKEN", tmdb_token)
 
-        println("git count: ${(project.extra["gitCommitCount"] as Int) + 10000}")
-        println("git commit: ${project.extra["gitHash"]}")
+        val versionCode: String = project.extra["versionCode"].toString()
+        val versionName: String = project.extra["versionName"].toString()
+        val gitHash: String = project.extra["gitHash"].toString()
 
-        val versionCode: String = findProperty("showcase.versionCode") as String
-        val versionName: String = findProperty("showcase.versionName") as String
         buildConfigField(FieldSpec.Type.INT, "versionCode", versionCode)
         buildConfigField(FieldSpec.Type.STRING, "versionName", versionName)
+        buildConfigField(FieldSpec.Type.STRING, "gitHash", gitHash)
     }
 }
 

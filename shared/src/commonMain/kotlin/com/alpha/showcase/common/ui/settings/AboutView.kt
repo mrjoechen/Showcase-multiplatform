@@ -78,7 +78,7 @@ fun AboutView() {
             }){
 
             Text(
-                text = "${BuildKonfig.versionName}(${BuildKonfig.versionCode})",
+                text = "${BuildKonfig.versionName}.${BuildKonfig.gitHash}(${BuildKonfig.versionCode})",
                 color = LocalContentColor.current.copy(0.6f)
             )
         }

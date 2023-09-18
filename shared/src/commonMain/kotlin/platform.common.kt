@@ -10,6 +10,8 @@ expect class UUID {
 
 expect fun randomUUID(): UUID
 
+expect fun log(msg: String)
+
 expect fun String.encodeName(): String
 
 expect fun String.decodeName(): String
@@ -21,5 +23,7 @@ expect fun String.decodePass(key: String, iv: String): String
 expect abstract class Process
 
 expect fun openScreenSaverSettings()
+
+expect fun rclonePath(): String
 
 expect fun showcaseConfigPath(): String

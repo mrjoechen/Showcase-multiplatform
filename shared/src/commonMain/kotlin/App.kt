@@ -1,17 +1,16 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.alpha.showcase.common.ui.MainNavHost
+import com.alpha.showcase.common.ui.theme.MyApplicationTheme
 
 @Composable
 fun App() {
-    MaterialTheme {
+    MyApplicationTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             MainNavHost()
         }
     }
 }
-

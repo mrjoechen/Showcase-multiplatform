@@ -15,6 +15,12 @@ actual typealias Process = java.lang.Process
 
 actual fun showcaseConfigPath(): String = app.filesDir.absolutePath
 
+actual fun log(msg: String) {
+    android.util.Log.d("Showcase-Android", msg)
+}
+
+actual fun rclonePath(): String = app.applicationInfo.nativeLibraryDir + "/$NATIVE_LIB_NAME"
+
 actual fun openScreenSaverSettings() {
 
 }

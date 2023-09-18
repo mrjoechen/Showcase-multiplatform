@@ -33,9 +33,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.alpha.showcase.common.ui.settings.ProgressIndicator
 import com.alpha.showcase.common.ui.settings.SettingsListView
 import com.alpha.showcase.common.ui.settings.SettingsViewModel
+import com.alpha.showcase.common.ui.source.SourceListView
 
 
 /**
@@ -66,7 +66,7 @@ fun MainNavHost() {
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 20.dp, 0.dp, 5.dp), horizontalAlignment = Alignment.Start){
+                .padding(5.dp, 20.dp, 5.dp, 5.dp), horizontalAlignment = Alignment.Start){
 
             Row(
                 Modifier
@@ -76,7 +76,7 @@ fun MainNavHost() {
             ) {
 
               Surface(
-                Modifier.padding(10.dp),
+                Modifier.padding(16.dp, 20.dp),
                 shape = RoundedCornerShape(6.dp),
               ) {
 
@@ -84,10 +84,10 @@ fun MainNavHost() {
                   currentDestination = Screen.Sources.route
                 }) {
                   Text(
-                    modifier = Modifier.padding(30.dp, 10.dp),
+                    modifier = Modifier.padding(20.dp, 10.dp),
                     text = StringResources.current.app_name,
                     fontStyle = FontStyle.Italic,
-                    fontSize = 24.sp,
+                    fontSize = 32.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
@@ -96,7 +96,6 @@ fun MainNavHost() {
 
               }
 
-                Spacer(modifier = Modifier.weight(1f))
 
                 var settingSelected by remember {
                     mutableStateOf(false)
@@ -154,7 +153,7 @@ fun MainNavHost() {
     Column {
       Spacer(Modifier.height(it.calculateTopPadding()))
       if (currentDestination == Screen.Sources.route) {
-        ProgressIndicator()
+        SourceListView()
       }
       if (currentDestination == Screen.Settings.route) {
         SettingsListView(SettingsViewModel())

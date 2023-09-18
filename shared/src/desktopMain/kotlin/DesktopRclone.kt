@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalEncodingApi::class)
 
 import com.alpha.networkfile.model.NetworkFile
 import com.alpha.networkfile.rclone.COMMAND_ABOUT
@@ -45,6 +46,8 @@ import okio.source
 import java.lang.StringBuilder
 import java.security.SecureRandom
 import java.util.concurrent.Executors
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 const val TAG = "DesktopRclone"
 const val WIN_NATIVE_LIB_NAME = "rclone.exe"
@@ -691,7 +694,7 @@ class DesktopRclone(): Rclone {
     val secureRandom = SecureRandom()
     val value = ByteArray(16)
     secureRandom.nextBytes(value)
-    return Base64.encodeToString(value, Base64.NO_PADDING or Base64.NO_WRAP or Base64.URL_SAFE)
+    return Base64.encode(value, 0, value.size)
   }
 
 

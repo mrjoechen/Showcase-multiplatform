@@ -1,8 +1,12 @@
+@file:OptIn(ExperimentalEncodingApi::class, ExperimentalEncodingApi::class, ExperimentalEncodingApi::class, ExperimentalEncodingApi::class)
+
 import java.nio.charset.Charset
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 object AESCrypt {
     private const val ENCRYPTION_METHOD = "AES/CBC/PKCS5PADDING"
@@ -15,7 +19,7 @@ object AESCrypt {
         val ivParameterSpec = IvParameterSpec(iv)
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
         val encrypted = cipher.doFinal(data.toByteArray(Charset.forName(CHARSET_NAME)))
-        return Base64.encodeToString(encrypted, Base64.NO_WRAP)
+        return Base64.encode(encrypted, 0, encrypted.size)
     }
 
     fun decrypt(password: ByteArray, encryptedData: String, iv: ByteArray): String {
@@ -26,7 +30,7 @@ object AESCrypt {
         val cipher = Cipher.getInstance(ENCRYPTION_METHOD)
         val ivParameterSpec = IvParameterSpec(iv)
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
-        val decrypted = cipher.doFinal(Base64.decode(encryptedData, Base64.NO_WRAP))
+        val decrypted = cipher.doFinal(Base64.decode(encryptedData, 0, encryptedData.length))
         return String(decrypted, Charset.forName(CHARSET_NAME))
     }
 
@@ -52,17 +56,20 @@ object AESCrypt {
 
 //config name may only contain `0-9`, `A-Z`, `a-z`, `_`, `-`, `.` and space.
 actual fun String.encodeName(): String {
-    val encode = Base64.encodeToString(trim().toByteArray(), Base64.NO_WRAP or Base64.NO_PADDING)
+    val source = trim().toByteArray()
+    val encode = Base64.encode(source, 0, source.size)
     return encode.replace("/", "_").replace("+", "-").replace("=", ".")
 }
 
 actual fun String.decodeName(): String{
     val decode = trim().replace("_", "/").replace("-", "+").replace(".", "=")
-    return String(Base64.decode(decode, Base64.NO_WRAP or Base64.NO_PADDING))
+    val bytes = Base64.decode(decode, 0, length)
+    return String(bytes)
 }
 
 actual fun String.encodePass(key: String, iv: String): String {
-    val encode = Base64.encodeToString(trim().toByteArray(), Base64.NO_WRAP or Base64.NO_PADDING)
+    val source = trim().toByteArray()
+    val encode = Base64.encode(source, 0, source.size)
     val replace = encode.replace("/", "_").replace("+", "-").replace("=", ".")
     return AESCrypt.encrypt(key.toByteArray(), replace, iv.toByteArray())
 }
@@ -70,7 +77,7 @@ actual fun String.encodePass(key: String, iv: String): String {
 actual fun String.decodePass(key: String, iv: String): String{
     val decrypt = AESCrypt.decrypt(key.toByteArray(), this, iv.toByteArray())
     val decode = decrypt.trim().replace("_", "/").replace("-", "+").replace(".", "=")
-    return String(Base64.decode(decode, Base64.NO_WRAP or Base64.NO_PADDING))
+    return String(Base64.decode(decode, 0, decode.length))
 }
 
 

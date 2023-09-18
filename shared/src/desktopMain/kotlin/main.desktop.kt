@@ -60,6 +60,14 @@ actual fun showcaseConfigPath(): String {
     return AppConfig.getConfigDirectory()
 }
 
+actual fun rclonePath(): String {
+    return File(System.getProperty("compose.application.resources.dir")).resolve("rclone").absolutePath
+}
+
+actual fun log(msg: String) {
+    println(msg)
+}
+
 actual fun openScreenSaverSettings() {
 
     if (AppConfig.isWindows()){

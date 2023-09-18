@@ -39,6 +39,9 @@ class Showcase{
             val jFrame: JFrame = this.window
 
             LaunchedEffect(Unit) {
+
+                jFrame.minimumSize = java.awt.Dimension(480, 640)
+
                 if (AppConfig.isMac()){
                     jFrame.rootPane.putClientProperty("apple.awt.transparentTitleBar", true)
                     jFrame.rootPane.putClientProperty("apple.awt.fullWindowContent", true)

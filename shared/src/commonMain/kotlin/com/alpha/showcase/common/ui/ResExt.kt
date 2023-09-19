@@ -68,8 +68,10 @@ data class StringResources(
     val tmdb_lang_zh_tw: String = "Traditional Chinese",
     val tmdb_lang_ru_ru: String = "Russian",
     val tmdb_image_type_backdrop: String = "Backdrop",
-    val tmdb_lang_type_poster: String = "Poster"
+    val tmdb_lang_type_poster: String = "Poster",
 
+    val data_not_found: String = "Data Not Found",
+    val data_under_construct: String = "Under Construction"
 ) {
 
     companion object {

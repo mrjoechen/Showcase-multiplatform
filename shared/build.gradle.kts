@@ -36,6 +36,9 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation(compose.ui)
+                implementation(compose.uiTooling)
+                implementation(compose.preview)
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
                 implementation(libs.kotlinx.serialization.json)
@@ -64,6 +67,8 @@ kotlin {
                 implementation(libs.ktor.client.cio)
                 implementation(libs.kstore.file)
                 implementation(libs.androidx.compose.windowsizeclass)
+                //lottie
+                implementation(libs.bundles.lottie)
             }
         }
 //        val iosX64Main by getting

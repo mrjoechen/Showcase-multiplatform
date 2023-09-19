@@ -56,7 +56,6 @@ import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -84,11 +83,13 @@ import com.alpha.showcase.common.ui.dialog.DeleteDialog
 import com.alpha.showcase.common.ui.dialog.SourceTypeDialog
 import com.alpha.showcase.common.ui.settings.ProgressIndicator
 import com.alpha.showcase.common.ui.settings.SettingsViewModel
-import com.alpha.showcase.common.ui.view.LottieAnimation
+import com.alpha.showcase.common.ui.view.DataNotFoundAnim
 import com.alpha.showcase.common.ui.vm.UiState
 import com.alpha.showcase.common.utils.getIcon
 import decodeName
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -114,7 +115,7 @@ fun SourceListView(
 
   uiState.let {
     when (it) {
-      is UiState.Error -> LottieAnimation()
+      is UiState.Error -> DataNotFoundAnim()
       is UiState.Loading -> ProgressIndicator()
       is UiState.Content -> {
         val sources = it.data.sources.toList()
@@ -291,6 +292,7 @@ private fun SourceGrid(sources: List<RemoteApi<Any>>, viewModel: SourceViewModel
 
 private val MORE_OPERATION by lazy { listOf(Config, Delete) }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun SourceItem(
   remoteApi: RemoteApi<Any>,
@@ -480,7 +482,7 @@ private fun SourceItemBackground(
       }.onPointerEvent(PointerEventType.Exit) {
         onFocusChanged?.invoke(false)
       }
-      ,
+    ,
     elevation = CardDefaults.elevatedCardElevation(2.dp, 4.dp, 5.dp, 5.dp, 6.dp, 2.dp),
 //    onClick = onClick?: {},
     content = content

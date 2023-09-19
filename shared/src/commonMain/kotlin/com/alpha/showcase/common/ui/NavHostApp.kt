@@ -15,12 +15,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,8 +40,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alpha.showcase.common.ui.settings.SettingsListView
-import com.alpha.showcase.common.ui.settings.SettingsViewModel
 import com.alpha.showcase.common.ui.source.SourceListView
+import com.alpha.showcase.common.ui.view.DataNotFoundAnim
+import isDesktop
 
 
 /**
@@ -54,6 +60,7 @@ val navItems = listOf(
     Screen.Settings,
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainNavHost() {
 
@@ -64,94 +71,112 @@ fun MainNavHost() {
     modifier = Modifier
         .fillMaxSize(),
     topBar = {
+      if (!isDesktop()){
+        TopAppBar(
+          title = {
+            Text(
+              text = StringResources.current.app_name,
+              fontStyle = FontStyle.Italic,
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis,
+              color = MaterialTheme.colorScheme.background,
+              fontWeight = FontWeight.Bold
+            )
+          },
+          colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = MaterialTheme.colorScheme.primary)
+          //             scrollBehavior = scrollBehavior
+        )
+      }else {
         Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(5.dp, 20.dp, 5.dp, 5.dp), horizontalAlignment = Alignment.Start){
+          Modifier
+            .fillMaxWidth()
+            .padding(5.dp, 20.dp, 5.dp, 5.dp), horizontalAlignment = Alignment.Start){
 
-            Row(
-                Modifier
-                .fillMaxWidth(),
-              verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.SpaceBetween
+          Row(
+            Modifier
+              .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+          ) {
+
+            Surface(
+              Modifier.padding(16.dp, 20.dp),
+              shape = RoundedCornerShape(6.dp),
             ) {
 
-              Surface(
-                Modifier.padding(16.dp, 20.dp),
-                shape = RoundedCornerShape(6.dp),
-              ) {
-
-                Box(modifier = Modifier.clickable(interactionSource = MutableInteractionSource(), indication = null) {
-                  currentDestination = Screen.Sources.route
-                }) {
-                  Text(
-                    modifier = Modifier.padding(20.dp, 10.dp),
-                    text = StringResources.current.app_name,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 32.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
-                  )
-                }
-
+              Box(modifier = Modifier.clickable(interactionSource = MutableInteractionSource(), indication = null) {
+                currentDestination = Screen.Sources.route
+              }) {
+                Text(
+                  modifier = Modifier.padding(20.dp, 10.dp),
+                  text = StringResources.current.app_name,
+                  fontStyle = FontStyle.Italic,
+                  fontSize = 32.sp,
+                  maxLines = 1,
+                  overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.primary,
+                  fontWeight = FontWeight.Bold
+                )
               }
-
-
-                var settingSelected by remember {
-                    mutableStateOf(false)
-                }.apply {
-                    value = Screen.Settings.route == currentDestination
-                }
-
-                Surface(
-                    Modifier.padding(20.dp, 0.dp),
-                    shape = RoundedCornerShape(6.dp),
-                    tonalElevation = if (settingSelected) 1.dp else 0.dp,
-                    shadowElevation = if (settingSelected) 1.dp else 0.dp
-                ) {
-                    Box(modifier = Modifier
-                        .clickable {
-                          settingSelected = !settingSelected
-                          if (settingSelected){
-                            currentDestination = Screen.Settings.route
-                          }else {
-                            currentDestination = Screen.Sources.route
-                          }
-                        }
-                        .padding(10.dp)) {
-                        Icon(
-                            imageVector = Icons.Outlined.Settings,
-                            contentDescription = Screen.Settings.route,
-                            tint = if (settingSelected) MaterialTheme.colorScheme.primary else LocalContentColor.current
-                        )
-                    }
-
-                }
 
             }
 
+            var settingSelected by remember {
+              mutableStateOf(false)
+            }.apply {
+              value = Screen.Settings.route == currentDestination
+            }
+
+            Surface(
+              Modifier.padding(20.dp, 0.dp),
+              shape = RoundedCornerShape(6.dp),
+              tonalElevation = if (settingSelected) 1.dp else 0.dp,
+              shadowElevation = if (settingSelected) 1.dp else 0.dp
+            ) {
+              Box(modifier = Modifier
+                .clickable {
+                  settingSelected = !settingSelected
+                  if (settingSelected){
+                    currentDestination = Screen.Settings.route
+                  }else {
+                    currentDestination = Screen.Sources.route
+                  }
+                }
+                .padding(10.dp)) {
+                Icon(
+                  imageVector = Icons.Outlined.Settings,
+                  contentDescription = Screen.Settings.route,
+                  tint = if (settingSelected) MaterialTheme.colorScheme.primary else LocalContentColor.current
+                )
+              }
+
+            }
+
+          }
+
         }
+      }
 
     },
-//    bottomBar = {
-//      Column {
-//        NavigationBar {
-//          navItems.forEachIndexed {_, item ->
-//            NavigationBarItem(
-//              icon = {Icon(item.icon, contentDescription = item.route)},
-//              label = {Text(item.route)},
-//              selected = currentDestination == item.route,
-//              onClick = {
-//                currentDestination = item.route
-//              }
-//            )
-//          }
-//        }
-//      }
-//    }
+    bottomBar = {
+      if (!isDesktop()){
+        Column {
+          NavigationBar {
+            navItems.forEachIndexed {_, item ->
+              NavigationBarItem(
+                icon = {Icon(item.icon, contentDescription = item.route)},
+                label = {Text(item.route)},
+                selected = currentDestination == item.route,
+                onClick = {
+                  currentDestination = item.route
+                }
+              )
+            }
+          }
+        }
+      }
+    }
   ){
-    Column(modifier = Modifier.padding(10.dp, 0.dp)) {
+    Column {
       Spacer(Modifier.height(it.calculateTopPadding()))
       if (currentDestination == Screen.Sources.route) {
         SourceListView()

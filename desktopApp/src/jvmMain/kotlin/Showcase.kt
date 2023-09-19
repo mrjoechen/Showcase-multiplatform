@@ -8,6 +8,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import javax.swing.JFrame
+import javax.swing.SwingUtilities
 
 class Showcase{
     companion object {

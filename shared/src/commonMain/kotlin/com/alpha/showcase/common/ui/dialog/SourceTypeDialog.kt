@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -35,6 +34,8 @@ import com.alpha.networkfile.storage.WEBDAV
 import com.alpha.networkfile.storage.external.GITHUB
 import com.alpha.networkfile.storage.external.TMDB
 import com.alpha.showcase.common.ui.theme.Dimen
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 val SUPPORT_LIST = listOf(
   LOCAL to "ic_local.xml",
@@ -97,6 +98,7 @@ fun SourceTypeDialog(onTypeClick: (StorageType?) -> Unit = {}) {
 }
 
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun Item(res: Pair<StorageType, String>, onClick: () -> Unit = {}) {
 

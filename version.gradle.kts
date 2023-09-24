@@ -1,7 +1,7 @@
 
 
 // 定义一个函数来获取 Git 提交数
-fun retriveGitCommitCount(): Int {
+fun retrieveGitCommitCount(): Int {
     return try {
         val process = Runtime.getRuntime().exec("git rev-list --count HEAD")
         val output = process.inputStream.reader(Charsets.UTF_8).readText()
@@ -20,7 +20,7 @@ fun retriveGitHash(): String {
         "error"
     }
 }
-val gitCommitCount = retriveGitCommitCount()
+val gitCommitCount = retrieveGitCommitCount()
 val gitHash = retriveGitHash()
 val versionCode = gitCommitCount + 10000
 val versionName = findProperty("showcase.versionName") as String

@@ -1,4 +1,4 @@
-package com.alpha.showcase.ui.settings
+package com.alpha.showcase.common.ui.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
@@ -150,13 +150,13 @@ fun AboutView() {
             }
         )
 
-        IconItem(
-            Icons.Outlined.IosShare,
-            desc = "Share",
-            onClick = {
-
-            }
-        )
+//        IconItem(
+//            Icons.Outlined.IosShare,
+//            desc = "Share",
+//            onClick = {
+//
+//            }
+//        )
 
 //        IconItem(
 //            icon = Icons.Outlined.NewReleases,

@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.alpha.showcase.common.data.GeneralPreference
 import com.alpha.showcase.common.data.GeneralPreferenceKey
-import com.alpha.showcase.ui.settings.AboutView
 import com.alpha.showcase.ui.settings.SlideModeView
 import com.alpha.showcase.common.data.Settings
 import com.alpha.showcase.common.ui.StringResources
@@ -304,12 +303,12 @@ fun ShowcaseSettings(
 
 sealed class ShowcaseMode(type: Int, title: String, resString: Int):
   Select<Int>(type, title, resString) {
-  object Slide: ShowcaseMode(SHOWCASE_MODE_SLIDE, "Slide", 1)
-  object FrameWall: ShowcaseMode(SHOWCASE_MODE_FRAME_WALL, "Frame wall", 2)
-  object Fade: ShowcaseMode(SHOWCASE_MODE_FADE, "Fade", 3)
+  data object Slide: ShowcaseMode(SHOWCASE_MODE_SLIDE, "Slide", 1)
+  data object FrameWall: ShowcaseMode(SHOWCASE_MODE_FRAME_WALL, "Frame wall", 2)
+  data object Fade: ShowcaseMode(SHOWCASE_MODE_FADE, "Fade", 3)
 
   companion object {
-    const val key: String = "ShowcaseMode"
+    const val KEY: String = "ShowcaseMode"
     fun fromValue(type: Int): ShowcaseMode {
       return when(type) {
         SHOWCASE_MODE_SLIDE -> Slide

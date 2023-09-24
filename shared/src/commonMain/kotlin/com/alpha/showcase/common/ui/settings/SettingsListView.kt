@@ -52,7 +52,6 @@ fun SettingsListView(viewModel: SettingsViewModel = SettingsViewModel) {
 }
 
 
-@Suppress("UNCHECKED_CAST")
 @Composable
 fun SettingsColumn(settings: Settings, viewModel: SettingsViewModel) {
 

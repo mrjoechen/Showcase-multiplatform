@@ -56,6 +56,8 @@ kotlin {
                 implementation(libs.kstore.file)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.lsposed.lsparanoid)
+                implementation(libs.napier)
+
             }
         }
         val androidMain by getting {

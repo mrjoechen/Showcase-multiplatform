@@ -437,7 +437,7 @@ private fun AddSourceItem(vertical: Boolean, onClick: () -> Unit) {
 
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 private fun SourceItemBackground(
   vertical: Boolean,
@@ -448,7 +448,7 @@ private fun SourceItemBackground(
   content: @Composable ColumnScope.() -> Unit
 ) {
 
-  val scale = animateFloatAsState(if (scaled) 1.1f else 1f, label = "animateScale")
+  val scale = animateFloatAsState(if (scaled) 1.1f else 1f)
   val pressedInteractionSource = remember { MutableInteractionSource() }
 
   ElevatedCard(

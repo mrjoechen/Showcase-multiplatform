@@ -19,10 +19,10 @@ const val NOW_PLAYING_MOVIES = "Now Playing"
 
 
 sealed class TMDBSourceType(val type: String, val title: String) {
-    object TopRated : TMDBSourceType(TOP_RATED_MOVIES, StringResources.current.tmdb_top_rated)
-    object Popular : TMDBSourceType(POPULAR_MOVIES, StringResources.current.tmdb_popular)
-    object Upcoming : TMDBSourceType(UPCOMING_MOVIES, StringResources.current.tmdb_upcoming)
-    object NowPlaying : TMDBSourceType(NOW_PLAYING_MOVIES, StringResources.current.tmdb_now_playing)
+    data object TopRated : TMDBSourceType(TOP_RATED_MOVIES, StringResources.current.tmdb_top_rated)
+    data object Popular : TMDBSourceType(POPULAR_MOVIES, StringResources.current.tmdb_popular)
+    data object Upcoming : TMDBSourceType(UPCOMING_MOVIES, StringResources.current.tmdb_upcoming)
+    data object NowPlaying : TMDBSourceType(NOW_PLAYING_MOVIES, StringResources.current.tmdb_now_playing)
 }
 
 class TmdbSourceRepo : SourceRepository<TMDBSource, String> {

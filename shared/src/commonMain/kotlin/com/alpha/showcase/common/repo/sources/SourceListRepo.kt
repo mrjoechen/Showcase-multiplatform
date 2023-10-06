@@ -12,7 +12,7 @@ import showcaseConfigPath
 import java.util.UUID
 
 
-class SourceListRepo() {
+class SourceListRepo {
   private val store: KStore<StorageSources> = storeOf(filePath = showcaseConfigPath() + "/sources.json", json = StorageSourceSerializer.sourceJson)
 
   private val defaultValue by lazy {

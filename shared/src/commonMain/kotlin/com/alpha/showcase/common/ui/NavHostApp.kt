@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -143,7 +144,7 @@ fun MainNavHost() {
                 }
                 .padding(10.dp)) {
                 Icon(
-                  imageVector = Icons.Outlined.Settings,
+                  imageVector = if (settingSelected) Icons.Filled.Settings else Icons.Outlined.Settings,
                   contentDescription = Screen.Settings.route,
                   tint = if (settingSelected) MaterialTheme.colorScheme.primary else LocalContentColor.current
                 )

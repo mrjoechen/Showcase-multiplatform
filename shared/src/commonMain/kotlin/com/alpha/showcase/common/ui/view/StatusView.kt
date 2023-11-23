@@ -11,17 +11,17 @@ import com.alpha.showcase.common.ui.theme.Dimen
 
 @Composable
 fun DataNotFoundAnim() {
-    LabeledAnimation(StringResources.current.data_not_found, "lottie_error_screen.json")
+    LabeledAnimation(StringResources.current.data_not_found, "lottie/lottie_error_screen.json")
 }
 
 @Composable
 fun DataNotFoundAnim(msg: String) {
-    LabeledAnimation(msg, "lottie_error_screen.json")
+    LabeledAnimation(msg, "lottie/lottie_error_screen.json")
 }
 
 @Composable
 fun UnderConstructionAnim() {
-    LabeledAnimation(StringResources.current.data_under_construct, "lottie_building_screen.json")
+    LabeledAnimation(StringResources.current.data_under_construct, "lottie/lottie_building_screen.json")
 }
 
 @Composable
@@ -42,7 +42,7 @@ fun LoadingIndicator(){
             .fillMaxWidth()
             .align(Alignment.Center)) {
             Spacer(modifier = Modifier.weight(2f))
-            LottieAssetLoader("lottie_loading.json", modifier = Modifier.weight(1f))
+            LottieAssetLoader("lottie/lottie_loading.json", modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.weight(2f))
         }
     }
